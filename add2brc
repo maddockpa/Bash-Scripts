@@ -12,42 +12,49 @@
 #File existence variable
 fileExists=false
 
-#Create array from $1 param
-IFS='/' read -a path <<< "${1}"
-
-#record the path length
-binaryIndex=$((${#path[@]}-1))
-pathLength=$(($binaryIndex-1))
-
-#loop through string and concatenate elements into path to script
-newPath=''
-for (( i=1; i<=$pathLength; i++ ))
-do
-       newPath+='/'
-       newPath+=${path[$i]} 
-done
-
-#create export string to be put into .bashrc
-exportString="export PATH=\$PATH:$newPath"  
-
-#check to see if the file exists
-[ -f $1 ] && fileExists=true || echo "$1 does not exist."
-
-#checks to see if the export statement is already in your .bashrc
-inBashrc=$(cat /home/pmaddock/.bashrc | grep ^"$exportString"$)
-
-#if the file exists and isn't in the user's .bashrc check to see if it's executable
-if $fileExists  && [[ $inBashrc == "" ]];
+if [[ ${1} != "" ]];
 then
-    [ -x $1 ] && 
-    { echo "$1 is already executable."; echo $exportString  >> $HOME/.bashrc; echo "Your .bashrc has been updated to add $newPath to your path."; } || 
-    { echo "$1 is now executable."; echo $exportString  >> $HOME/.bashrc; echo  "Your .bashrc has been updated to add $newPath to your path."; chmod +x $1; }
-elif $fileExists && [[ $inBashrc != "" ]]; 
-then
-    #if it's already in the .bashrc check to see if it is executable
-    [ -x $1 ] &&
-    { echo "$1 is already executable."; } ||
-    { echo "$1 is now executable."; chmod +x $1; }
-    echo "Your .bashrc already exports this script's directory to your path."
+
+    #Create array from $1 param
+    IFS='/' read -a path <<< "${1}"
+
+    #record the path length
+    binaryIndex=$((${#path[@]}-1))
+    pathLength=$(($binaryIndex-1))
+
+    #loop through string and concatenate elements into path to script
+    newPath=''
+    for (( i=1; i<=$pathLength; i++ ))
+    do
+           newPath+='/'
+           newPath+=${path[$i]} 
+    done
+
+    #create export string to be put into .bashrc
+    exportString="export PATH=\$PATH:$newPath"  
+
+    #check to see if the file exists
+    [ -f $1 ] && fileExists=true || echo "$1 does not exist."
+
+    #checks to see if the export statement is already in your .bashrc
+    inBashrc=$(cat /home/pmaddock/.bashrc | grep ^"$exportString"$)
+
+    #if the file exists and isn't in the user's .bashrc check to see if it's executable
+    if $fileExists  && [[ $inBashrc == "" ]];
+    then
+        [ -x $1 ] && 
+        { echo "$1 is already executable."; echo $exportString  >> $HOME/.bashrc; echo "Your .bashrc has been updated to add $newPath to your path."; } || 
+        { echo "$1 is now executable."; echo $exportString  >> $HOME/.bashrc; echo  "Your .bashrc has been updated to add $newPath to your path."; chmod +x $1; }
+        echo "Now type the following:  source ~/.bashrc"
+        echo "It will reload your .bashrc"
+    elif $fileExists && [[ $inBashrc != "" ]]; 
+    then
+        #if it's already in the .bashrc check to see if it is executable
+        [ -x $1 ] &&
+        { echo "$1 is already executable."; } ||
+        { echo "$1 is now executable."; chmod +x $1; }
+        echo "Your .bashrc already exports this script's directory to your path."
+    fi
+else
+    echo "You did not enter a full path to a script.  eg. add2brc /full/path/myScript -- where myScript is the name of the script."
 fi
-
