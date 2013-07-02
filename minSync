@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+############################################################
+# Updates transforms that are in project manager and in asset
+# master.
+#  
+# If either of the transform directories aren't at their location
+# let the user know via unity window.
+# 
+# Sync profile and hidden config files from your home directory.
+#
+############################################################
+
+#Create a listener that looks for changes in both transform directories.
+rsync -r /home/pmaddock/dev/spidasoft/Min.git/assetmaster/transforms/. "ijuscol\pmaddock"@test-minapps.ijuscol.com:~/transforms-a
+rsync -r /home/pmaddock/dev/spidasoft/Min.git/projectmanager/runtime/scripts/transforms/. "ijuscol\pmaddock"@test-minapps.ijuscol.com:~/transforms-p
