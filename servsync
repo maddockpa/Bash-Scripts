@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+############################################################
+# Adds an export statement for the script to .bashrc script and
+# sets the file to be executable.
+#
+# @param $1 Full path to script. Assumes you use the full path to the binary
+# @output Tells you whether the export statement is in the .bashrc file
+# Outputs whether the file is already executable. If the file doesn't exist
+# it will tell you so.
+############################################################
+
+
