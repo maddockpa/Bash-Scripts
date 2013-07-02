@@ -1,0 +1,40 @@
+Proposal
+
+	Create a program that distributes a set of file directories to multiple servers based on saved credentials.  
+
+Language
+
+	Java/Groovy
+
+Format
+
+	GUI - Groovy Swing Builder
+
+
+Outline
+
+	Upon opening the program you will be prompted for a password.
+
+	The opening screen will be a summary of servers and when they were last updated and from which computer.  The will have a color code for easy interpretation of what needs to be changed.
+
+	Each server will have a list of files that are to be synced.
+
+
+Important Features
+
+	Security
+
+		Security needs to be a big sell on this software.  Users of the software will want to know that no one else who hacks their computer can access their credentials and functionality. I will have to research the many ways of securing a connection, passwords and credentials. salting, encrypting, etc.
+
+	Ease of use
+
+		Easily understood prompts for managing multiple servers.
+
+Author
+	
+	Paul A. Maddock
+
+Date Started
+
+	June 9th 2013
+
