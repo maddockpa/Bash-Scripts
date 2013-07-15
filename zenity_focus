@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+$(sleep 1 && wmctrl -a Information -b add,above)&
+$(zenity --info --text="How to help Zenity to get focus and be always on top - pastebin.com/VUsBevqy")

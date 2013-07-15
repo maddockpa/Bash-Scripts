@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Check to see if a server is up.
+address="https://$1:$2"
+sleepTime=10
+while [[ $(curl -k "$address") != *html* ]]
+do
+    echo "$address is NOT active. $(date)"
+    sleep $sleepTime
+done
+$(sleep 1 && wmctrl -a Information -b add,above)&
+$(zenity --info --text="$address is now active")
